@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,27 +21,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class MainActivity extends AppCompatActivity {
+public class createAdmin extends AppCompatActivity {
     EditText fullname,email,password,phone;
     Button register,login;
     boolean valid=true;
-     FirebaseAuth fauth;
-     FirebaseFirestore fstore;
+    FirebaseAuth fauth;
+    FirebaseFirestore fstore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        fullname=findViewById(R.id.fullname);
-        email=findViewById(R.id.email);
-        password=findViewById(R.id.password);
-        phone=findViewById(R.id.phone);
-        register=findViewById(R.id.create);
-        login=findViewById(R.id.login);
+        setContentView(R.layout.activity_create_admin);
+        fullname=findViewById(R.id.fullnamea);
+        email=findViewById(R.id.emaila);
+        password=findViewById(R.id.passworda);
+        phone=findViewById(R.id.phonea);
+        register=findViewById(R.id.createa);
+
 
         fauth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             FirebaseUser user=fauth.getCurrentUser();
-                            Toast.makeText(MainActivity.this,"account created",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(createAdmin.this,"account created",Toast.LENGTH_SHORT).show();
                             DocumentReference df=fstore.collection("user").document(user.getUid());
                             Map<String,Object> userinfo=new HashMap<>();
                             userinfo.put("fullname",fullname.getText().toString());
                             userinfo.put("email",email.getText().toString());
                             userinfo.put("phone",phone.getText().toString());
 
-                            userinfo.put("isuser","1");
+                            userinfo.put("isadmin","1");
                             df.set(userinfo);
 
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(createAdmin.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -80,15 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),signin.class));
             }
-        });
-
-
-    }
     public boolean checkFiels(EditText editText){
         if(editText.getText().toString().isEmpty()){
             editText.setError("error");
@@ -99,4 +90,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return valid;
     }
-}
+
+
+
+
+    }
+

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,46 +20,60 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class signin extends AppCompatActivity {
     EditText email,password;
     boolean valid=true;
     Button signin;
     FirebaseAuth fauth;
     FirebaseFirestore fstore;
+    TextView textView;
+    private EditText editText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-        email=findViewById(R.id.email);
-        password=findViewById(R.id.password1);
+
         signin=findViewById(R.id.signin);
 
         fauth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
 
-        signin.setOnClickListener(new View.OnClickListener() {
+       signin.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+
+                  EditText  email=(EditText) findViewById(R.id.username);
+                  EditText  password=(EditText) findViewById(R.id.password1);
+                  String email1=email.getText().toString();
+                  String password1= password.getText().toString();
+
+
+               if(valid)
+
+              fauth.signInWithEmailAndPassword(email1, password1).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                  @Override
+                  public void onSuccess(AuthResult authResult) {
+                      Toast.makeText(signin.this, "success", Toast.LENGTH_SHORT).show();
+                      checkUserLevel(authResult.getUser().getUid());
+                  }
+              }).addOnFailureListener(new OnFailureListener() {
+                  @Override
+                  public void onFailure(@NonNull Exception e) {
+                      Toast.makeText(signin.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                  }
+              });
+           }
+       });
+        textView=findViewById(R.id.register1);
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkFiels(email);
-                checkFiels(password);
-                Log.d("TAG","onClick"+email.getText().toString());
-                if(valid){
-                    fauth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(signin.this,"LoggedIn",Toast.LENGTH_SHORT).show();
-                            checkUserLevel(authResult.getUser().getUid());
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                          Toast.makeText(signin.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
             }
         });
     }
@@ -70,12 +85,12 @@ public class signin extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("TAG","Onsuccess"+documentSnapshot.getData());
 
-                if(documentSnapshot.getString("isAdmin")=="1"){
+                if(null != documentSnapshot.getString("isadmin")){
 
                     startActivity(new Intent(getApplicationContext(),admin.class));
                     finish();
                 }
-                if(documentSnapshot.getString("isuser")=="1"){
+                else {
                     startActivity(new Intent(getApplicationContext(),user.class));
                     finish();
                 }
