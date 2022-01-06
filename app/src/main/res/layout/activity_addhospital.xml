@@ -6,17 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".addhospital"
     android:orientation="vertical"
-    android:layout_marginStart="30dp">
+    android:layout_marginStart="30dp"
+    android:layout_marginEnd="30dp">
+
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="330dp"
+        android:layout_height="99dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hospital name or centre Name"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         tools:layout_editor_absoluteX="116dp"
         tools:layout_editor_absoluteY="73dp" />
     <EditText
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"/>
@@ -29,6 +38,7 @@
         tools:layout_editor_absoluteX="116dp"
         tools:layout_editor_absoluteY="73dp" />
     <EditText
+        android:id="@+id/type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"/>
@@ -41,6 +51,7 @@
         tools:layout_editor_absoluteX="116dp"
         tools:layout_editor_absoluteY="73dp" />
     <EditText
+        android:id="@+id/capsity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"/>
@@ -53,6 +64,7 @@
         tools:layout_editor_absoluteX="116dp"
         tools:layout_editor_absoluteY="73dp" />
     <EditText
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"/>
@@ -65,19 +77,21 @@
         tools:layout_editor_absoluteX="116dp"
         tools:layout_editor_absoluteY="73dp" />
     <EditText
+        android:id="@+id/contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"/>
     <Button
         android:id="@+id/add"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 android:text="Add"/>
     <Button
         android:id="@+id/update"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="update"/>
+
 </LinearLayout>
