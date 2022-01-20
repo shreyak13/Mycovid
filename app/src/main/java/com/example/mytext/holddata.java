@@ -1,6 +1,8 @@
 package com.example.mytext;
 
-public class holddata {
+import java.io.Serializable;
+
+public class holddata implements Serializable {
     String name;
     String type;
     String bed;
@@ -69,4 +71,3 @@ public class holddata {
         this.image = image;
     }
 }
-

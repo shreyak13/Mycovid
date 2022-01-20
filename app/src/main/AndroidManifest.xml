@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mytext">
         <activity
+            android:name=".view"
+            android:exported="false" />
+        <activity
             android:name=".addadmin"
             android:exported="false" />
         <activity

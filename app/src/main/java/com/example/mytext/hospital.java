@@ -1,13 +1,13 @@
 package com.example.mytext;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,12 +28,12 @@ public class hospital extends AppCompatActivity {
     RecyclerView recyclerView;
     rowadapter rowadapter;
     List<holddata> holddata1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital);
-        getSupportFragmentManager().beginTransaction().replace(R.id.recycler,new refragment()).commit();
+
+
 
         fbase=FirebaseDatabase.getInstance();
         dref= fbase.getReference().child("Hospitals");
@@ -77,6 +77,5 @@ public class hospital extends AppCompatActivity {
         });
 
     }
-
-
 }
+
