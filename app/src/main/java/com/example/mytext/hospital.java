@@ -28,6 +28,9 @@ public class hospital extends AppCompatActivity {
     RecyclerView recyclerView;
     rowadapter rowadapter;
     List<holddata> holddata1;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +42,15 @@ public class hospital extends AppCompatActivity {
         dref= fbase.getReference().child("Hospitals");
         storage=FirebaseStorage.getInstance();
         recyclerView=findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         holddata1=new ArrayList<holddata>();
         rowadapter =new rowadapter(hospital.this,holddata1);
         recyclerView.setAdapter(rowadapter);
+
+
+
 
         dref.addChildEventListener(new ChildEventListener() {
             @Override

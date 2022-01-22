@@ -3,7 +3,6 @@ package com.example.mytext;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +42,9 @@ import java.util.List;
         @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holddata dataholder1=hospitalList.get(position);
+          holddata dataholder1=hospitalList.get(position);
 
-            holder.name.setText("Name:- "+dataholder1.getName()+"    "+"Type:- "+dataholder1.getType());
+            holder.name.setText("Name:- "+dataholder1.getName());
             holder.details.setText("details"+dataholder1.getType());
             String imageuri=null;
             imageuri=dataholder1.getImage();
@@ -53,20 +52,21 @@ import java.util.List;
 
 
 
-         holder.imageView.setOnClickListener(new View.OnClickListener() {
+
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  int a=holder.getAdapterPosition();
                  Toast.makeText(view.getContext(), "Item is clicked" + a, Toast.LENGTH_SHORT).show();
                  Intent i = new Intent(context,view.class);
-                // i.putExtra("bookname",dataholder1.getName());
-                 //context.startActivity(i);
-               //  String t=String.valueOf(position);
-                // Toast.makeText(view.getContext(), "Item is clicked" + t, Toast.LENGTH_SHORT).show();Bundle
-                 Bundle bundle=new Bundle();
-                 bundle.putSerializable("key",dataholder1);
-                 i.putExtras(bundle);
+                 i.putExtra("Name",dataholder1.getName());
+                 i.putExtra("type",dataholder1.getType());
+                 i.putExtra("bed",dataholder1.getBed());
+                 i.putExtra("address",dataholder1.getAddress());
+                 i.putExtra("contact",dataholder1.getContact());
                  context.startActivity(i);
+
 
              }
          });
@@ -81,7 +81,7 @@ import java.util.List;
             return hospitalList.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+      public class ViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
             TextView name,details;
             public ViewHolder(View v) {
@@ -91,5 +91,7 @@ import java.util.List;
                 details=v.findViewById(R.id.tvdetails);
             }
         }
+
+
 
     }
